@@ -51,6 +51,34 @@ package com.mycompany.webserverlenin;
 //    }
 
 
+//        @GetMapping("/updateStatus")
+//        public String updateStatusByJobCode(@RequestParam String jobCode) {
+//        String status = "confirmed";
+//        try {
+//            System.out.println("Received request to update job code: " + jobCode);
+//            mangoDBConnection.updateStatusByJobCode(jobCode, status);
+//            System.out.println("Status updated to confirmed for job code: " + jobCode);
+//            return "<html>" +
+//                    "<body>" +
+//                    "<h1>Job Order Status Update</h1>" +
+//                    "<p>Job Code: <strong>" + jobCode + "</strong> has been confirmed at <strong>" + Util.getTimeDate() + "</strong>.</p>" +
+//                    "<p>You may now close this tab</p>" +
+//                    "</body>" +
+//                    "</html>";
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return "<html>" +
+//                    "<body>" +
+//                    "<h1>Error</h1>" +
+//                    "<p>Error updating status: " + e.getMessage() + "</p>" +
+//                    "please contact developer" +
+//                    "</body>" +
+//                    "</html>";
+//        }
+//    }
+//    }
+        
+        
         @GetMapping("/updateStatus")
         public String updateStatusByJobCode(@RequestParam String jobCode) {
         String status = "confirmed";
@@ -77,7 +105,6 @@ package com.mycompany.webserverlenin;
         }
     }
     }
-
     //    @GetMapping("/updateStatus")
     //    public String updateStatus(@RequestParam String jobCode, @RequestParam String status) {
     //        mangoDBConnection.updateStatusByJobCode(jobCode, status);
