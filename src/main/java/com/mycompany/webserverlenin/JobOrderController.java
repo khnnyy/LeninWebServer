@@ -53,17 +53,27 @@ package com.mycompany.webserverlenin;
 
         @GetMapping("/updateStatus")
         public String updateStatusByJobCode(@RequestParam String jobCode) {
-            String status = "confirmed";
-            try {
-                System.out.println("Received request to update job code: " + jobCode);
-                mangoDBConnection.updateStatusByJobCode(jobCode, status);
-                System.out.println("Status updated to confirmed for job code: " + jobCode);
-                return "Status updated to confirmed successfully";
-            } catch (Exception e) {
-                e.printStackTrace();
-                return "Error updating status: " + e.getMessage();
-            }
+        String status = "confirmed";
+        try {
+            System.out.println("Received request to update job code: " + jobCode);
+            mangoDBConnection.updateStatusByJobCode(jobCode, status);
+            System.out.println("Status updated to confirmed for job code: " + jobCode);
+            return "<html>" +
+                    "<body>" +
+                    "<h1>Status Update</h1>" +
+                    "<p>Job Code: <strong>" + jobCode + "</strong> has been confirmed at " + Util.getTimeDate() + ".</p>" +
+                    "</body>" +
+                    "</html>";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "<html>" +
+                    "<body>" +
+                    "<h1>Error</h1>" +
+                    "<p>Error updating status: " + e.getMessage() + "</p>" +
+                    "</body>" +
+                    "</html>";
         }
+    }
     }
 
     //    @GetMapping("/updateStatus")
