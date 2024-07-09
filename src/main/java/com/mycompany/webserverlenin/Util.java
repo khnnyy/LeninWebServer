@@ -17,7 +17,7 @@ public class Util {
     
     public static String getTimeDate() {
         // Define the date and time format
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy | HH:mm:ss");
         // Get the current date and time in the Philippine time zone
         ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Manila"));
         // Return the formatted date and time

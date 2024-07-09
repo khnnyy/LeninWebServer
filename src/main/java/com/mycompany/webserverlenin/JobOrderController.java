@@ -60,8 +60,9 @@ package com.mycompany.webserverlenin;
             System.out.println("Status updated to confirmed for job code: " + jobCode);
             return "<html>" +
                     "<body>" +
-                    "<h1>Status Update</h1>" +
-                    "<p>Job Code: <strong>" + jobCode + "</strong> has been confirmed at " + Util.getTimeDate() + ".</p>" +
+                    "<h1>Job Order Status Update</h1>" +
+                    "<p>Job Code: <strong>" + jobCode + "</strong> has been confirmed at <strong>" + Util.getTimeDate() + "</strong>.</p>" +
+                    "<p>You may now close this tab</p>" +
                     "</body>" +
                     "</html>";
         } catch (Exception e) {
@@ -70,6 +71,7 @@ package com.mycompany.webserverlenin;
                     "<body>" +
                     "<h1>Error</h1>" +
                     "<p>Error updating status: " + e.getMessage() + "</p>" +
+                    "please contact developer" +
                     "</body>" +
                     "</html>";
         }
