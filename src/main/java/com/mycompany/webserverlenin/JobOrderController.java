@@ -35,6 +35,11 @@ package com.mycompany.webserverlenin;
             jobOrder.setJobOrderType(jobOrderType);
             return mangoDBConnection.jobCode(jobOrder);
         }
+        
+        @GetMapping("/health")
+        public String healthCheck() {
+        return "Application is up and running!";
+        }
 
         @GetMapping("/status")
         public String getStatusByJobCode(@RequestParam String jobCode) {
