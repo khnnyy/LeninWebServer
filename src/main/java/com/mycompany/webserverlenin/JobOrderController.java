@@ -80,7 +80,7 @@ package com.mycompany.webserverlenin;
         
         @GetMapping("/updateStatus")
 public String updateStatusByJobCode(@RequestParam String jobCode) {
-    String status = "confirmed";
+    String status = "confirmed: "+ Util.getTimeDate();
     try {
         System.out.println("Received request to update job code: " + jobCode);
         mangoDBConnection.updateStatusByJobCode(jobCode, status);
