@@ -80,10 +80,12 @@ package com.mycompany.webserverlenin;
         
         @GetMapping("/updateStatus")
 public String updateStatusByJobCode(@RequestParam String jobCode) {
-    String status = "confirmed: "+ Util.getTimeDate();
+    String status = "in progress";
+    String confirmed = Util.getTimeDate();
     try {
         System.out.println("Received request to update job code: " + jobCode);
         mangoDBConnection.updateStatusByJobCode(jobCode, status);
+        mangoDBConnection.confirmStatusByJobCode(jobCode,confirmed);
         System.out.println("Status updated to confirmed for job code: " + jobCode);
         return "<!DOCTYPE html>" +
                 "<html lang='en' style='font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif;'>"+
@@ -103,7 +105,8 @@ public String updateStatusByJobCode(@RequestParam String jobCode) {
                 "<h1>Job Order Status Update</h1>"+
                 "</header>"+
                 "<main style='max-width: 600px; margin: 40px auto; padding: 20px; background-color: #fff; border: 1px solid #ddd; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);'>"+
-                "<p>Job Code: <strong>" + jobCode + "</strong> has been confirmed at <strong>" + Util.getTimeDate() + "</strong>.</p>"+
+                "<p>Job Order: <strong>" + jobCode + "</strong> has been confirmed at <strong>" + Util.getTimeDate() + "</strong>.</p>"+ 
+                "<p>Job Order: <strong>" + jobCode + "</strong> will now be flagged as <strong>in progress</strong>.</p>"+                
                 "<p>You may now close this tab</p>"+
                 "</main>"+
                 "</body>"+

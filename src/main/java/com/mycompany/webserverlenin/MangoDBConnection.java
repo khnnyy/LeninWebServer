@@ -56,6 +56,17 @@ public class MangoDBConnection {
             e.printStackTrace();
         }
     }
+    
+    public void confirmStatusByJobCode(String jobCode, String newConfirmed){
+        try{
+            Document query = new Document("job_code", jobCode);
+            Document confirm = new Document("$set", new Document("date_confirmed", newConfirmed));
+            collection.updateOne(query, confirm);
+        } catch (MongoException e) {
+            e.printStackTrace();
+        }
+    }
+    
 
     public void insertData(JOVar att) {
         try {
