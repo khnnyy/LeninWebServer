@@ -28,4 +28,8 @@ public class MongoConfig {
     MongoClient mongoClient = MongoClients.create(mongoUri);
     return mongoClient.getDatabase("LeninJobOrder"); // Replace with your database name
   }
+  
+  
 }
+
+

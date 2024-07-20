@@ -10,8 +10,7 @@ import java.net.URL;
 @Component
 public class KeepAliveTask {
 
-//    private static final long INTERVAL = 10 * 60 * 1000; // 10 minutes in milliseconds
-        private static final long INTERVAL = 30 * 1000; // 10 minutes in milliseconds
+    private static final long INTERVAL = 10 * 60 * 1000; // 10 minutes in milliseconds
 
     private static final String TARGET_URL = "https://leninwebserver.onrender.com/health"; // Replace with your URL
 

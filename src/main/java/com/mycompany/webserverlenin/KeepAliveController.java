@@ -9,16 +9,31 @@ package com.mycompany.webserverlenin;
  * @author khanny
  */
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/")
 public class KeepAliveController {
+    
+    @Autowired
+    private SecurityProperties securityProperties;
 
     @GetMapping("/health")
     public String healthCheck() {
+        customUserDetailsService.reloadUserDetails();
+//        securityProperties.getUser().setUsername("khan");
+//        securityProperties.getUser().setPassword("pot");
         return "Application is up and running!";
     }
+    
+    private final CustomUserDetailsService customUserDetailsService;
+
+    public KeepAliveController(CustomUserDetailsService customUserDetailsService) {
+        this.customUserDetailsService = customUserDetailsService;
+    }
+
 }

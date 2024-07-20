@@ -9,6 +9,7 @@ package com.mycompany.webserverlenin;
  * @author khanny
  */
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.stereotype.Component;
 
@@ -31,6 +32,7 @@ public class JOVar {
     private String leader;
     private String transpo;
     private String dateIssued;
+    private String dateConfirmed;
     private String dateDue;
     private String status;
     private String confirmationToken;
@@ -44,7 +46,16 @@ public class JOVar {
 //    private SecretKey key;
 //    private IvParameterSpec iv;
     
+    @Transient
+    private long runningDays;
     
+    public long getRunningDays() {
+        return runningDays;
+    }
+
+    public void setRunningDays(long runningDays) {
+        this.runningDays = runningDays;
+    }
     public JOVar() {
         this.confirmationToken = ""; // Initialize token as empty string
     }
@@ -70,13 +81,13 @@ public class JOVar {
 //    }
         // Getters and setters
     
-//    public void setUser(String user){
-//        this.user = user;
-//    }
-//    
-//    public void setPassword(String password){
-//        this.password = password;
-//    }
+    public void setUser(String user){
+        this.user = user;
+    }
+    
+    public void setPassword(String password){
+        this.password = password;
+    }
 //    
 //    public void setCluster(String cluster){
 //        this.cluster = cluster;
@@ -140,6 +151,10 @@ public class JOVar {
         
     }
     
+    public void setDateConfirmed(String dateConfirmed){
+        this.dateConfirmed = dateConfirmed;
+    }
+    
     public void setDateDue(String dateDue){
         this.dateDue = dateDue;
         
@@ -153,13 +168,13 @@ public class JOVar {
     
     /*-----------Getter-------------*/
     
-//    public String getUser(){
-//        return this.user;
-//    }
-//    
-//    public String getPassword(){
-//        return this.password;
-//    }
+    public String getUser(){
+        return this.user;
+    }
+    
+    public String getPassword(){
+        return this.password;
+    }
 //    
 //    public String getCluster(){
 //        return this.cluster;
@@ -217,6 +232,10 @@ public class JOVar {
     public String getDateIssued(){
         return this.dateIssued;
         
+    }
+    
+    public String getDateConfirmed(){
+        return this.dateConfirmed;
     }
 
     public String getDateDue(){

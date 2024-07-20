@@ -1,0 +1,42 @@
+body {
+    font-family: 'Arial', sans-serif;
+    font-size: 0.875rem; /* Base font size */
+    color: #333;
+}
+
+h1 {
+    font-size: 1.5rem; /* Header font size */
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #0056b3;
+}
+
+.table th, .table td {
+    font-size: 0.875rem; /* Table font size */
+    white-space: nowrap;
+    vertical-align: middle; /* Vertical alignment */
+}
+
+.table th {
+    background-color: #f8f9fa;
+    text-align: center;
+}
+
+.input-group input {
+    font-size: 0.875rem; /* Input font size */
+}
+
+.input-group button {
+    font-size: 0.875rem; /* Button font size */
+}
+
+.table-responsive {
+    margin-top: 1rem;
+}
+
+.table-container {
+    overflow-y: auto;
+    max-height: 500px;
+    border: 1px solid #ddd;
+    padding: 10px;
+}

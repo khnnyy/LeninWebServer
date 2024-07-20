@@ -38,6 +38,7 @@ package com.mycompany.webserverlenin;
         
         @GetMapping("/health")
         public String healthCheck() {
+            
         return "Application is up and running!";
         }
 
@@ -86,11 +87,11 @@ package com.mycompany.webserverlenin;
         @GetMapping("/updateStatus")
 public String updateStatusByJobCode(@RequestParam String jobCode) {
     String status = "in progress";
-    String confirmed = Util.getTimeDate();
+    String confirmed = Util.getDate();
     try {
         System.out.println("Received request to update job code: " + jobCode);
         mangoDBConnection.updateStatusByJobCode(jobCode, status);
-        mangoDBConnection.confirmStatusByJobCode(jobCode,confirmed);
+        mangoDBConnection.confirmStatusByJobCode(jobCode, confirmed);
         System.out.println("Status updated to confirmed for job code: " + jobCode);
         return "<!DOCTYPE html>" +
                 "<html lang='en' style='font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif;'>"+

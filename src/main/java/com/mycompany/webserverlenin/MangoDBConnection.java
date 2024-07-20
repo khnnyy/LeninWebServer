@@ -16,8 +16,12 @@ import com.mongodb.client.MongoDatabase;
 
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Indexes.descending;
+import com.mongodb.client.model.Updates;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import javax.crypto.SecretKey;
@@ -31,6 +35,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.bson.conversions.Bson;
 
 @Component
 public class MangoDBConnection {
@@ -38,12 +43,42 @@ public class MangoDBConnection {
     @Autowired
     private final MongoDatabase database;
     private final MongoCollection<Document> collection;
+    private final MongoCollection<Document> configuration;
+
 
     @Autowired
     public MangoDBConnection() {
         MongoClient mongoClient = MongoClients.create("mongodb+srv://khadeem:lenin_JO@clusterleninjo.divpuaq.mongodb.net/LeninJobOrder?retryWrites=true&w=majority&appName=ClusterLeninJO");
         this.database = mongoClient.getDatabase("LeninJobOrder");
         this.collection = database.getCollection("solutionsClient");
+        this.configuration = database.getCollection("solutionsConfig");
+    }
+    
+    public MongoCollection<Document> getCollection() {
+        return collection;
+    }
+    
+    public MongoCollection<Document> getConfiguration() {
+        return configuration;
+    }
+    
+    
+    public List<Document> getProjectData() {
+        List<Document> projectData = new ArrayList<>();
+        try {
+          projectData = collection.find()
+              .projection(new Document("job_code", 1)
+                      .append("client_name", 1)
+                      .append("status", 1)
+                      .append("date_issued", 1)
+                      .append("date_confirmed", 1)
+                      .append("date_due", 1))
+              .sort(new Document("date_issued", -1))  // Sort by "date_issued" in descending order
+              .into(new ArrayList<>());
+        } catch (MongoException e) {
+          e.printStackTrace();
+        }
+        return projectData;
     }
     
 
@@ -66,6 +101,72 @@ public class MangoDBConnection {
             e.printStackTrace();
         }
     }
+        
+
+    public void updateRunningDays() {
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+
+        // Fetch documents where date_confirmed is not "-"
+        List<Document> documentsToUpdate = collection.find(
+                new Document("date_confirmed", new Document("$ne", "-"))
+        ).projection(new Document("_id", 1).append("date_confirmed", 1)).into(new ArrayList<>());
+
+        for (Document project : documentsToUpdate) {
+            String confirmedDateString = project.getString("date_confirmed");
+
+            if (confirmedDateString != null) {
+                try {
+                    LocalDate confirmedDate = LocalDate.parse(confirmedDateString, formatter);
+                    int runningDays = (int) ChronoUnit.DAYS.between(confirmedDate, currentDate);
+
+                    // Update the running_days field as a string for the current document
+                    String runningDaysStr = String.valueOf(runningDays);
+                    Bson updateDoc = Updates.set("running_days", runningDaysStr);
+                    collection.updateOne(new Document("_id", project.getObjectId("_id")), updateDoc);
+                } catch (Exception e) {
+                    // Handle the exception (e.g., log the error)
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    
+    public void updateWarranty() {
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+
+        // Fetch documents where status is "completed"
+        List<Document> documentsToUpdate = collection.find(
+                new Document("status", "completed")
+        ).projection(new Document("_id", 1).append("status", 1).append("warranty_date", 1).append("warranty", 1)).into(new ArrayList<>());
+
+        for (Document project : documentsToUpdate) {
+            String warrantyDateString = project.getString("warranty_date");
+
+            if (warrantyDateString != null) {
+                try {
+                    LocalDate warrantyDate = LocalDate.parse(warrantyDateString, formatter);
+                    // Calculate 90 days from the warranty date
+                    LocalDate ninetyDaysLater = warrantyDate.plusDays(90);
+
+                    // Calculate running days countdown
+                    long runningDays = ChronoUnit.DAYS.between(currentDate, ninetyDaysLater);
+
+                    // Update the running_days field as a string for the current document
+                    String runningDaysStr = String.valueOf(runningDays);
+                    Bson updateDoc = Updates.set("warranty", runningDaysStr);
+                    collection.updateOne(new Document("_id", project.getObjectId("_id")), updateDoc);
+                } catch (Exception e) {
+                    // Handle the exception (e.g., log the error)
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+
+
     
 
     public void insertData(JOVar att) {

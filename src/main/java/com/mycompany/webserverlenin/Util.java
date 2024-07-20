@@ -23,4 +23,13 @@ public class Util {
         // Return the formatted date and time
         return dtf.format(now);
     }
+    
+    public static String getDate() {
+        // Define the date format
+        DateTimeFormatter dtfDate = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        // Get the current date and time in the Philippine time zone
+        ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Manila"));
+        // Extract only the date part and format it
+        return dtfDate.format(now);
+    }
 }
