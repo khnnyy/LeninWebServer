@@ -28,6 +28,7 @@ package com.mycompany.webserverlenin;
             mangoDBConnection.insertData(jobOrder);
             return "Job Order inserted successfully";
         }
+        
 
         @GetMapping("/jobcode")
         public String getJobCode(@RequestParam String jobOrderType) {
@@ -111,7 +112,7 @@ public String updateStatusByJobCode(@RequestParam String jobCode) {
                 "<h1>Job Order Status Update</h1>"+
                 "</header>"+
                 "<main style='max-width: 600px; margin: 40px auto; padding: 20px; background-color: #fff; border: 1px solid #ddd; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);'>"+
-                "<p>Job Order: <strong>" + jobCode + "</strong> has been confirmed at <strong>" + Util.getTimeDate() + "</strong>.</p>"+ 
+                "<p>Job Order: <strong>" + jobCode + "</strong> has been confirmed at <strong>" + Util.getDate() + "</strong>.</p>"+ 
                 "<p>Job Order: <strong>" + jobCode + "</strong> will now be flagged as <strong>in progress</strong>.</p>"+                
                 "<p>You may now close this tab</p>"+
                 "</main>"+

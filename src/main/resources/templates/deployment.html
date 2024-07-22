@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Job Deployment</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    /* Custom button styles */
+    .btn-custom-view {
+        background-color: #17a2b8; /* Custom background color */
+        color: white; /* Text color */
+        border-radius: 4px; /* Rounded corners */
+        border: 1px solid transparent; /* Border style */
+    }
+    
+    .btn-custom-view:hover {
+        background-color: #138496; /* Darker background on hover */
+        color: white; /* Text color on hover */
+    }
+    
+    .btn-custom-delete {
+        background-color: #dc3545; /* Custom background color */
+        color: white; /* Text color */
+        border-radius: 4px; /* Rounded corners */
+        border: 1px solid transparent; /* Border style */
+    }
+    
+    .btn-custom-delete:hover {
+        background-color: #c82333; /* Darker background on hover */
+        color: white; /* Text color on hover */
+    }
+  </style>
+</head>
+<body>
+  <div th:insert="~{fragments/header}"></div>
+  
+  <div class="container-fluid p-4">
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+        <h1 class="h2">Job Code Report</h1>
+        <form id="search-form" class="mb-3" th:action="@{/search}" method="post">
+          <div class="input-group">
+            <input type="text" id="search-input" name="jobCode" class="form-control form-control-sm" placeholder="Search by job code" style="font-size: 14px;">
+            <button type="submit" class="btn btn-primary btn-sm" style="font-size: 14px;">Search</button>
+          </div>
+        </form>
+        <div class="table-responsive">
+          <table class="table table-striped table-bordered" id="job-table">
+            <thead>
+              <tr>
+                <th scope="col">Job Code</th>
+                <th scope="col">Client Name</th>
+                <th scope="col">Actions</th> <!-- Add Actions column -->
+              </tr>
+            </thead>
+            <tbody id="job-data">
+              <tr th:each="job : ${jobs}">
+                <td th:text="${job.code}">Job Code</td>
+                <td th:text="${job.clientName}">Client Name</td>
+                <td>
+                  <a href="#" th:href="@{/deploy/{code}(id=${job.code})}" class="btn btn-custom-view btn-sm">Deploy</a>
+                  <a href="#" th:href="@{/view-details/{code}(id=${job.code})}" class="btn btn-custom-delete btn-sm">View</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
