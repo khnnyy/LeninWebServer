@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Job Code Report</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div th:replace="fragments/header :: header"></div>
+
+  <div class="container-fluid p-4">
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+        <h1 class="h2">Job Code Report</h1>
+        <form id="search-form" class="mb-3" th:action="@{/search}" method="post">
+          <div class="input-group">
+            <input type="text" id="search-input" name="jobCode" class="form-control form-control-sm" placeholder="Search by job code" style="font-size: 14px;">
+            <button type="submit" class="btn btn-primary btn-sm" style="font-size: 14px;">Search</button>
+          </div>
+        </form>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="statusFilter" id="allProjects" value="all" checked>
+          <label class="form-check-label" for="allProjects">All Projects</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="statusFilter" id="activeProjects" value="active">
+          <label class="form-check-label" for="activeProjects">Active Projects</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="statusFilter" id="completedProjects" value="completed">
+          <label class="form-check-label" for="completedProjects">Completed Projects</label>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-striped table-bordered" id="job-table">
+            <thead>
+              <tr>
+                <th scope="col">Client Name</th>
+                <th scope="col">Job Code</th>
+                <th scope="col">Project Status</th>
+                <th scope="col">Creation Date</th>
+                <th scope="col">Date Confirmed</th>
+                <th scope="col">Running Days</th>
+                <th scope="col">Warranty Status</th>
+              </tr>
+            </thead>
+            <tbody id="job-data">
+              <!-- Table rows will be populated dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/script.js"></script>
+</body>
+</html>

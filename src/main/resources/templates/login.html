@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lenin Job Order System</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <style>
+    body {
+      display: flex;
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #f5f5f5;
+    }
+
+    .left-section {
+      flex: 1.3;
+      background-color: #0414AF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .right-section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 20px;
+    }
+
+    .login-container {
+      background-color: white;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      margin-bottom: 60px; /* Give some space for the footer */
+      text-align: center;
+    }
+
+    .login-container h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: #0414AF;
+    }
+
+    .login-container h2 {
+      font-size: 22px;
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    .login-container .form-group {
+        margin-bottom: 20px;
+        text-align: left;
+      }
+    
+    
+
+    .login-container .btn {
+      width: 100%;
+      font-size: 18px;
+      padding: 10px;
+    }
+
+    .logo {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .footer-container {
+      background-color: white;
+      color: #333;
+      text-align: center;
+      padding: 20px;
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .footer-container a {
+      color: #ADD8E6;
+      text-decoration: none;
+    }
+    
+    .footer-container a:hover {
+            color: #FFD700;
+        }
+  </style>
+</head>
+<body>
+  <div class="left-section">
+    <img src="https://scontent.fdvo2-2.fna.fbcdn.net/v/t39.30808-6/416848382_726294406344469_7543977016700668034_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeFvr6AwMtFOmNJh840T-raqSsUpem2pHsxKxSl6bakezCD7OdsKIZ-J6G2UJmBhfqcc4T2A207ESXjNqoky1B2M&_nc_ohc=9Hcur0lAcG4Q7kNvgEhywCl&_nc_ht=scontent.fdvo2-2.fna&oh=00_AYCBtuROkompzWWTucDEdIE9ChON5Fwd4LPruHqoou2NZQ&oe=66A52243"
+         alt="Logo" class="logo">
+  </div>
+  <div class="right-section">
+    <div class="login-container">
+      <h1 class="text-center">Lenin Job Order System</h1>
+      <h2 class="text-center">Login</h2>
+      <form th:action="@{/login}" method="post">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" class="form-control" required>
+        </div>
+        <div class="form-group text-center">
+          <button type="submit" class="btn btn-primary mt-3">Login</button>
+        </div>
+      </form>
+    </div>
+    <div class="footer-container">
+      <div class="container">
+        <p class="mb-0">Web App designed and developed by <a href="mailto:xabubakarzx@gmail.com">Al-Khadeem Abubakar</a></p>
+        <p class="mb-0">An Internship project for Lenin Computer Systems, Inc.</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const errorMessage = urlParams.get('error');
+      if (errorMessage) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: decodeURIComponent(errorMessage) // Decode the URL-encoded error message
+        });
+      }
+    });
+  </script>
+</body>
+</html>

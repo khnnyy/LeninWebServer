@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Order Result</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Job Order Submission Result</h2>
+    <div th:if="${jobOrderForm != null}">
+        <p>Date Issued: <span th:text="${jobOrderForm.dateIssued}"></span></p>
+        <p>Job Code: <span th:text="${jobOrderForm.jobCode}"></span></p>
+        <p>Job Code Text: <span th:text="${jobOrderForm.jobCodeText}"></span></p>
+        <p>Client Name: <span th:text="${jobOrderForm.clientName}"></span></p>
+        <p>Contact: <span th:text="${jobOrderForm.contact}"></span></p>
+        <p>Request Recommendation: <span th:text="${jobOrderForm.requestRecommendation}"></span></p>
+        <p>Address: <span th:text="${jobOrderForm.address}"></span></p>
+        <p>Date Deployed: <span th:text="${jobOrderForm.dateDeployed}"></span></p>
+        <p>Service Request: <span th:text="${jobOrderForm.serviceRequest}"></span></p>
+        <p>Leader: <span th:text="${jobOrderForm.leader}"></span></p>
+        <p>Date Due: <span th:text="${jobOrderForm.dateDue}"></span></p>
+        <p>Man Power: <span th:text="${jobOrderForm.manPower}"></span></p>
+        <p>Instructions: <span th:text="${jobOrderForm.instructions}"></span></p>
+    </div>
+</div>
+</body>
+</html>
