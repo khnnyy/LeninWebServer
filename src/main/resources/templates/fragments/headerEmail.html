@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            background-color: #0414AF; /* Updated background color */
+            width: 100%; /* Set the header to take the full width of the viewport */
+            max-width: 100%; /* Limit the maximum width */
+            margin: 0 auto; /* Center the header horizontally */
+            box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+        }
+        .logo {
+            flex-grow: 1;
+            text-align: center; /* Center the logo horizontally */
+        }
+        .logo img {
+            max-height: 50px; /* Adjust as needed */
+            height: auto;
+            width: auto; /* Ensure logo scales proportionally */
+        }
+        .home-btn {
+            color: white;
+            background-color: transparent;
+            border: none;
+            font-size: 24px; /* Size of the icon */
+            transition: transform 0.3s ease-in-out;
+        }
+        .home-btn:hover {
+            background-color: white; /* Darker shade on hover */
+            transform: scale(0.8); /* Slightly increase the size on hover */
+        }
+        
+        .right-text {
+            color: white;
+            font-family: 'Montserrat', sans-serif; /* Modern tech font */
+            font-size: 18px; /* Font size for the right-most text */
+            transition: transform 0.3s ease-in-out, color 0.3s ease-in-out; /* Smooth transition for hover effect */
+        }
+        
+        .home-text {
+            color: white;
+            font-family: 'Roboto', sans-serif; /* Font for the Home text */
+            font-size: 18px; /* Font size for the Home text */
+        }
+        .right-text:hover {
+            color: white; /* Change color on hover */
+            transform: scale(1.05); /* Scale up on hover */
+        }
+    </style>
+</head>
+<body>
+    <header th:fragment="header">
+        <div class="logo">
+            <img src="https://scontent.fmnl9-4.fna.fbcdn.net/v/t39.30808-6/416848382_726294406344469_7543977016700668034_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeFvr6AwMtFOmNJh840T-raqSsUpem2pHsxKxSl6bakezCD7OdsKIZ-J6G2UJmBhfqcc4T2A207ESXjNqoky1B2M&_nc_ohc=RfgWTqHKZNQQ7kNvgEjDDok&_nc_ht=scontent.fmnl9-4.fna&gid=A0vAijTjHrmfa8cqOfnkbkg&oh=00_AYCATogd_TBOyFOPoOL4jxDmxn1Bor4R5pY7zgQ2MR-N9Q&oe=66B01EC3" alt="Logo" style="max-width: 100px;"> <!-- Set max-width for logo -->
+        </div>
+        <div class="right-text">Lenin Job Order System</div>
+    </header>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

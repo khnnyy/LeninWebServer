@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en" style="font-family: Arial, sans-serif;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Order Confirmation</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #004085;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            font-size: 18px;
+            border-radius: 10px 10px 0 0;
+        }
+        .content {
+            padding: 20px;
+        }
+        .content p {
+            margin: 20px 0;
+        }
+        .detail {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        .label {
+            font-weight: bold;
+            flex: 0 0 30%;
+            padding-right: 10px;
+            white-space: nowrap;
+        }
+        .value {
+            flex: 1;
+            word-wrap: break-word;
+            white-space: nowrap;
+
+        }
+        a {
+            text-decoration: none;
+            color: #004085;
+        }
+        a:hover {
+            color: #002752;
+        }
+        @media (max-width: 600px) {
+            .detail {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .label {
+                width: 100%;
+                padding-right: 0;
+                padding-bottom: 5px;
+            }
+            .value {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            Job Order Confirmation
+        </div>
+        <div class="content">
+            <p>A job order has been requested. Here are the details:</p>
+            <div class="detail">
+                <span class="label">Job Order Type:</span>
+                <span class="value" th:text="${jobOrderForm.jobOrderType}">Job Order Type</span>
+            </div>
+            <div class="detail">
+                <span class="label">Job Code:</span>
+                <span class="value" th:text="${jobOrderForm.jobCode}">Job Code</span>
+            </div>
+            <div class="detail">
+                <span class="label">Client Name:</span>
+                <span class="value" th:text="${jobOrderForm.clientName}">Client Name</span>
+            </div>
+            <div class="detail">
+                <span class="label">Address:</span>
+                <span class="value" th:text="${jobOrderForm.address}">Address</span>
+            </div>
+            <div class="detail">
+                <span class="label">Contact:</span>
+                <span class="value" th:text="${jobOrderForm.contact}">Contact</span>
+            </div>
+            <div class="detail">
+                <span class="label">Initial Concern:</span>
+                <span class="value" th:text="${jobOrderForm.requestRecommendation}">Initial Concern</span>
+            </div>
+            <div class="detail">
+                <span class="label">Team Leader:</span>
+                <span class="value" th:text="${jobOrderForm.leader}">Team Leader</span>
+            </div>
+            <div class="detail">
+                <span class="label">Transportation:</span>
+                <span class="value" th:text="${jobOrderForm.serviceRequest}">Transportation</span>
+            </div>
+            <div class="detail">
+                <span class="label">Date Issued:</span>
+                <span class="value" th:text="${jobOrderForm.dateIssued}">Date Issued</span>
+            </div>
+            <div class="detail">
+                <span class="label">Expected Due:</span>
+                <span class="value" th:text="${jobOrderForm.dateDue}">Expected Due</span>
+            </div>
+            <p style="margin-top: 20px;">
+                Please click <a th:href="@{'http://localhost:8080/joborder/updateStatus?jobCode=' + ${jobOrderForm.jobCode} + '&status=confirmed'}">here</a> to confirm your job order.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
