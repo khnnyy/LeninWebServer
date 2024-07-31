@@ -106,34 +106,66 @@ public class MangoDBConnection {
     }
         
 
+//    public void updateRunningDays() {
+//        LocalDate currentDate = LocalDate.now();
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+//
+//        // Fetch documents where date_confirmed is not "-"
+//        List<Document> documentsToUpdate = collection.find(
+//                new Document("date_confirmed", new Document("$ne", "-"))
+//        ).projection(new Document("_id", 1).append("date_confirmed", 1)).into(new ArrayList<>());
+//
+//        for (Document project : documentsToUpdate) {
+//            String confirmedDateString = project.getString("date_confirmed");
+//
+//            if (confirmedDateString != null) {
+//                try {
+//                    LocalDate confirmedDate = LocalDate.parse(confirmedDateString, formatter);
+//                    int runningDays = (int) ChronoUnit.DAYS.between(confirmedDate, currentDate);
+//
+//                    // Update the running_days field as a string for the current document
+//                    String runningDaysStr = String.valueOf(runningDays);
+//                    Bson updateDoc = Updates.set("running_days", runningDaysStr);
+//                    collection.updateOne(new Document("_id", project.getObjectId("_id")), updateDoc);
+//                } catch (Exception e) {
+//                    // Handle the exception (e.g., log the error)
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//    }
+    
     public void updateRunningDays() {
-        LocalDate currentDate = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+    LocalDate currentDate = LocalDate.now();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
-        // Fetch documents where date_confirmed is not "-"
-        List<Document> documentsToUpdate = collection.find(
-                new Document("date_confirmed", new Document("$ne", "-"))
-        ).projection(new Document("_id", 1).append("date_confirmed", 1)).into(new ArrayList<>());
+    // Fetch documents where date_confirmed is not "-"
+    List<Document> documentsToUpdate = collection.find(
+            new Document("date_confirmed", new Document("$ne", "-"))
+    ).projection(new Document("_id", 1).append("date_confirmed", 1).append("status", 1)).into(new ArrayList<>());
 
-        for (Document project : documentsToUpdate) {
-            String confirmedDateString = project.getString("date_confirmed");
+    for (Document project : documentsToUpdate) {
+        String confirmedDateString = project.getString("date_confirmed");
+        String status = project.getString("status");
 
-            if (confirmedDateString != null) {
-                try {
-                    LocalDate confirmedDate = LocalDate.parse(confirmedDateString, formatter);
-                    int runningDays = (int) ChronoUnit.DAYS.between(confirmedDate, currentDate);
+        if (confirmedDateString != null && !status.equals("deployed")) {
+            try {
+                LocalDate confirmedDate = LocalDate.parse(confirmedDateString, formatter);
+                int runningDays = (int) ChronoUnit.DAYS.between(confirmedDate, currentDate);
 
-                    // Update the running_days field as a string for the current document
-                    String runningDaysStr = String.valueOf(runningDays);
-                    Bson updateDoc = Updates.set("running_days", runningDaysStr);
-                    collection.updateOne(new Document("_id", project.getObjectId("_id")), updateDoc);
-                } catch (Exception e) {
-                    // Handle the exception (e.g., log the error)
-                    e.printStackTrace();
-                }
+                // Update the running_days field as a string for the current document
+                String runningDaysStr = String.valueOf(runningDays);
+                Bson updateDoc = Updates.set("running_days", runningDaysStr);
+                collection.updateOne(new Document("_id", project.getObjectId("_id")), updateDoc);
+            } catch (Exception e) {
+                // Handle the exception (e.g., log the error)
+                e.printStackTrace();
             }
         }
     }
+}
+
+    
     
     public void updateWarranty() {
         LocalDate currentDate = LocalDate.now();
@@ -168,25 +200,44 @@ public class MangoDBConnection {
         }
     }
 
-
-
-    
-
-    public void insertData(JOVar att) {
+    public void insertData(JobOrderForm jobOrderForm) {
         try {
             Document document = new Document("_id", new ObjectId())
-                    .append("job_type", att.getJobOrderType())
-                    .append("job_code", att.getJobCode())
-                    .append("client_name", att.getClientName())
-                    .append("address", att.getAddress())
-                    .append("contact", att.getContact())
-                    .append("concern", att.getConcern())
-                    .append("leader", att.getLeader())
-                    .append("transportation", att.getTranspo())
-                    .append("date_issued", att.getDateIssued())
-                    .append("date_due", att.getDateDue())
-                    .append("status", att.getStatus());
+                    .append("job_type", jobOrderForm.getJobOrderType())
+                    .append("job_code", jobOrderForm.getJobCode())
+                    .append("client_name", jobOrderForm.getClientName())
+                    .append("client_contact", jobOrderForm.getContact())
+                    .append("client_address", jobOrderForm.getAddress())
+                    .append("client_request", jobOrderForm.getRequestRecommendation())
+                    .append("team_leader", jobOrderForm.getLeader())
+                    .append("solution_manpower", jobOrderForm.getManPower())
+                    .append("date_issued", jobOrderForm.getDateIssued())
+                    .append("time_issued", jobOrderForm.getTimeIssued())
+                    .append("date_due", jobOrderForm.getDateDue())
+                    .append("solution_instructions", jobOrderForm.getInstructions())
+                    .append("date_confirmed", "-")
+                    .append("running_days", "-")
+                    .append("date_deployed", "-")
+                    .append("time_deployed", "-")
+                    .append("date_released","-")
+                    .append("time_released", "-")
+                    .append("warranty", "-")
+                    .append("status", "pending"); // Assuming status is set to "Pending" initially
 
+        System.out.println("Date Issued: " + jobOrderForm.getDateIssued());
+        System.out.println("Job Code: " + jobOrderForm.getJobCode());
+        System.out.println("Job Order Type: " + jobOrderForm.getJobOrderType());
+        System.out.println("Job Code Text: " + jobOrderForm.getJobCodeText());
+        System.out.println("Client Name: " + jobOrderForm.getClientName());
+        System.out.println("Contact: " + jobOrderForm.getContact());
+        System.out.println("Request Recommendation: " + jobOrderForm.getRequestRecommendation());
+        System.out.println("Address: " + jobOrderForm.getAddress());
+        System.out.println("Date Deployed: " + jobOrderForm.getDateDeployed());
+        System.out.println("Service Request: " + jobOrderForm.getServiceRequest());
+        System.out.println("Leader: " + jobOrderForm.getLeader());
+        System.out.println("Date Due: " + jobOrderForm.getDateDue());
+        System.out.println("Man Power: " + jobOrderForm.getManPower());
+        System.out.println("Instructions: " + jobOrderForm.getInstructions());
             collection.insertOne(document);
         } catch (MongoException e) {
             e.printStackTrace();

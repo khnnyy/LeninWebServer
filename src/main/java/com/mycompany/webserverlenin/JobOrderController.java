@@ -22,14 +22,7 @@ package com.mycompany.webserverlenin;
         public JobOrderController(MangoDBConnection mangoDBConnection) {
             this.mangoDBConnection = mangoDBConnection;
         }
-
-        @PostMapping("/insert")
-        public String insertData(@RequestBody JOVar jobOrder) {
-            mangoDBConnection.insertData(jobOrder);
-            return "Job Order inserted successfully";
-        }
         
-
         @GetMapping("/jobcode")
         public String getJobCode(@RequestParam String jobOrderType) {
             JOVar jobOrder = new JOVar();

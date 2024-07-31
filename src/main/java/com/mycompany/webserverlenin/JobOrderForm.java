@@ -15,6 +15,7 @@ public class JobOrderForm {
     private int manPower;
     private String instructions;
     private String jobOrderType;
+    private String timeIssued;
 
     // Getters and setters for all fields, including jobOrderType
     public String getJobOrderType() {
@@ -33,6 +34,14 @@ public class JobOrderForm {
 
     public void setDateIssued(String dateIssued) {
         this.dateIssued = dateIssued;
+    }
+    
+    public String getTimeIssued(){
+        return timeIssued;
+    }
+    
+    public void setTimeIssued(String timeIssued){
+        this.timeIssued = timeIssued;
     }
 
     public String getJobCode() {
